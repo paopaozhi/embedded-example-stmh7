@@ -54,3 +54,7 @@ dkms.conf
 # Local files
 build/
 .vscode/c_cpp_properties.json
+
+# Idea
+cmake-*
+.idea/
