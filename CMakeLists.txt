@@ -37,6 +37,11 @@ message("Build type: " ${CMAKE_BUILD_TYPE})
 # Create an executable object type
 add_executable(${CMAKE_PROJECT_NAME})
 
+target_link_options(${PROJECT_NAME}
+    PRIVATE 
+        -T "${CMAKE_SOURCE_DIR}/device/board/fk/STM32H7B0VBTx_FLASH.ld"
+)
+
 # Add STM32CubeMX generated sources
 # add_subdirectory(device)
 add_subdirectory(device/board/fk)

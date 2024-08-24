@@ -4,18 +4,12 @@ set(SOC_ST_PATH "${CMAKE_SOURCE_DIR}/device/soc/st/STM32CubeH7")
 set(SOC_DRIVERS_CMSIS_PATH ${SOC_ST_PATH}/Drivers/CMSIS)
 set(SOC_DRIVERS_STMH7_PATH ${SOC_ST_PATH}/Drivers/STM32H7xx_HAL_Driver)
 
-
-message("CMAKE_CXX_COMPILER_ID: ${CMAKE_CXX_COMPILER_ID}")
-
 add_executable(${PROJECT_NAME})
 
-# target_link_options(${PROJECT_NAME}
-#     PRIVATE 
-#         -T \"${CMAKE_SOURCE_DIR}/STM32H7B0VBTx_FLASH.ld\"
-# )
-
-message("CMAKE_C_LINK_FLAGS: ${CMAKE_C_LINK_FLAGS}")
-
+target_link_options(${PROJECT_NAME}
+    PRIVATE 
+        -T "${PROJECT_SOURCE_DIR}/STM32H7B0VBTx_FLASH.ld"
+)
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE 
 	USE_HAL_DRIVER 

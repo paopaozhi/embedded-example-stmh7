@@ -35,6 +35,7 @@
 ***/
 
 #include "ospi_w25q64.h"
+#include <stdio.h>
 
 OSPI_HandleTypeDef hospi1;
 
@@ -161,12 +162,12 @@ int8_t OSPI_W25Qxx_Init(void)
 
     if (Device_ID == W25Qxx_FLASH_ID) // 进行匹配
     {
-        printf("W25Q64 OK,flash ID:%X\r\n", Device_ID); // 初始化成功
+        printf("W25Q64 OK,flash ID:%lX\r\n", Device_ID); // 初始化成功
         return OSPI_W25Qxx_OK;                          // 返回成功标志
     }
     else
     {
-        printf("W25Q64 ERROR!!!!!  ID:%X\r\n", Device_ID); // 初始化失败
+        printf("W25Q64 ERROR!!!!!  ID:%lX\r\n", Device_ID); // 初始化失败
         return W25Qxx_ERROR_INIT;                          // 返回错误标志
     }
 }
