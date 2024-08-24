@@ -53,6 +53,7 @@ dkms.conf
 
 # Local files
 build/
+out/
 .vscode/c_cpp_properties.json
 
 # Idea
