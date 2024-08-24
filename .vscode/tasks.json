@@ -15,12 +15,13 @@
 		},
 		{
 			"label": "flash firmware",
+			"detail": "片内编译 下载",
 			"type": "shell",
 			"command": "openocd",
 			"args": [
 				"-f",
 				"${workspaceFolder}\\openocd.cfg",
-				"-c \"program ./build/Debug/cmake-demo.elf preverify verify reset exit\""
+				"-c \"program ./out/Debug/Image.elf preverify verify reset exit\""
 			],
 			"dependsOn": [
 				"CMake: 生成"

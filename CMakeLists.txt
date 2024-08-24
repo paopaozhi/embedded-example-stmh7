@@ -19,7 +19,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 # Set the project name
-set(CMAKE_PROJECT_NAME cmake-demo)
+set(CMAKE_PROJECT_NAME Image)
 
 # Include toolchain file
 include("cmake/gcc-arm-none-eabi.cmake")
@@ -39,7 +39,7 @@ add_executable(${CMAKE_PROJECT_NAME})
 
 # Add STM32CubeMX generated sources
 # add_subdirectory(device)
-add_subdirectory(device/cubx/cmake/stm32cubemx)
+add_subdirectory(device/board/fk)
 
 # Link directories setup
 target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
@@ -67,6 +67,6 @@ target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
 
 # Add linked libraries
 target_link_libraries(${CMAKE_PROJECT_NAME}
-    stm32cubemx 
+    fk_h7b0 
     # Add user defined libraries
 )
