@@ -70,3 +70,6 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
     fk_h7b0 
     # Add user defined libraries
 )
+
+
+add_subdirectory(device/board/fk/bootloader)

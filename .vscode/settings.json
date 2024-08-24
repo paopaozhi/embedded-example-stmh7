@@ -2,6 +2,7 @@
     "files.associations": {
         "*.gni": "gn",
         "*.build": "json",
-        "main.h": "c"
+        "*.h": "c",
+        "*.c": "c",
     }
 }
