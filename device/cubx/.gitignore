@@ -1,7 +1,0 @@
-# cubx多余文件
-Drivers
-cmake
-cmake*.txt
-cmake*.json
-*.s
-*.ld
