@@ -40,6 +40,7 @@ add_executable(${CMAKE_PROJECT_NAME})
 target_link_options(${PROJECT_NAME}
     PRIVATE 
         -T "${CMAKE_SOURCE_DIR}/device/board/fk/STM32H7B0VBTx_FLASH.ld"
+        "-Wl,-Map=${CMAKE_PROJECT_NAME}.map"
 )
 
 # Add STM32CubeMX generated sources
