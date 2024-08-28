@@ -9,6 +9,7 @@ add_executable(${PROJECT_NAME})
 target_link_options(${PROJECT_NAME}
     PRIVATE 
         -T "${PROJECT_SOURCE_DIR}/STM32H7B0VBTx_FLASH.ld"
+        "-Wl,-Map=${PROJECT_NAME}.map"
 )
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE 
