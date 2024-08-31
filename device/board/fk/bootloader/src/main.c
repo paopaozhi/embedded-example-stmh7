@@ -15,8 +15,8 @@ static void MX_USART1_UART_Init(void);
 
 int main(void)
 {
-    SCB_EnableDCache();
-    SCB_EnableICache();
+    // SCB_EnableDCache();
+    // SCB_EnableICache();
 
     MPU_Config();
     HAL_Init();
@@ -24,8 +24,23 @@ int main(void)
 
     MX_USART1_UART_Init();
 
-    OSPI_W25Qxx_Init();             // 初始化OSPI和W25Q64
-    OSPI_W25Qxx_MemoryMappedMode(); // 配置QSPI为内存映射模式
+    printf("Input Bootloader!!\r\n\r\n");
+
+    OSPI_W25Qxx_Init();                               // 初始化OSPI和W25Q64
+    int QSPI_Status = OSPI_W25Qxx_MemoryMappedMode(); // 配置QSPI为内存映射模式
+
+    if (QSPI_Status == 0)
+    {
+        printf("\r\n进入内存映射模式成功\r\n");
+    }
+    else
+    {
+        printf("\r\n内存映射错误！！  错误代码:%d\r\n", QSPI_Status);
+        while (1)
+            ;
+    }
+
+    printf("JumpToApplication>>>\r\n\r\n");
 
     SCB_DisableICache(); // 关闭ICache
     SCB_DisableDCache(); // 关闭Dcache
@@ -34,9 +49,13 @@ int main(void)
     SysTick->LOAD = 0; // 清零重载值
     SysTick->VAL = 0;  // 清零计数值
 
+    __set_CONTROL(0);
+    __disable_irq();
+    __set_PRIMASK(1);
+
     JumpToApplication = (pFunction)(*(__IO uint32_t *)(W25Qxx_Mem_Addr + 4));
     __set_MSP(*(__IO uint32_t *)W25Qxx_Mem_Addr);
-    printf("跳转到W25Q64运行用户程序>>>\r\n\r\n");
+    // printf("跳转到W25Q64运行用户程序>>>\r\n\r\n");
 
     JumpToApplication();
 
@@ -194,4 +213,11 @@ void Error_Handler(void)
     {
     }
     /* USER CODE END Error_Handler_Debug */
+}
+
+int __io_putchar(int ch)
+{
+    HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 0xff);
+
+    return ch;
 }
