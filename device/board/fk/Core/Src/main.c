@@ -51,6 +51,13 @@ const osThreadAttr_t defaultTask_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
+/* Definitions for appMainTask02 */
+osThreadId_t appMainTask02Handle;
+const osThreadAttr_t appMainTask02_attributes = {
+  .name = "appMainTask02",
+  .stack_size = 512 * 4,
+  .priority = (osPriority_t) osPriorityLow,
+};
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -60,6 +67,7 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART1_UART_Init(void);
 void StartDefaultTask(void *argument);
+extern void app_main(void *argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -133,6 +141,9 @@ int main(void)
   /* Create the thread(s) */
   /* creation of defaultTask */
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+
+  /* creation of appMainTask02 */
+  appMainTask02Handle = osThreadNew(app_main, NULL, &appMainTask02_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -313,6 +324,7 @@ static void MX_GPIO_Init(void)
 void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN 5 */
+  (void) argument;
   /* Infinite loop */
   for(;;)
   {

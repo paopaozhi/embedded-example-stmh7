@@ -1,13 +1,5 @@
 cmake_minimum_required(VERSION 3.22)
 
-#
-# This file is generated only once,
-# and is not re-generated if converter is called multiple times.
-#
-# User is free to modify the file as much as necessary
-#
-
-# Setup compiler settings
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS ON)
@@ -40,30 +32,13 @@ add_executable(${CMAKE_PROJECT_NAME})
 target_link_options(${PROJECT_NAME}
     PRIVATE 
         -T "${CMAKE_SOURCE_DIR}/device/board/fk/STM32H7B0VBTx_FLASH.ld"
+        "-Wl,-Map=${CMAKE_PROJECT_NAME}.map"
 )
 
 # Add STM32CubeMX generated sources
-# add_subdirectory(device)
 add_subdirectory(device/board/fk)
-
-# Link directories setup
-target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
-    # Add user defined library search paths
-)
-
-file(GLOB_RECURSE SOURCES "app/*.*")
-
-# Add sources to executable
-target_sources(${CMAKE_PROJECT_NAME} PRIVATE
-    # Add user sources here
-    ${SOURCES}
-)
-
-# Add include paths
-target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
-    # Add user defined include paths
-    app/inc
-)
+add_subdirectory(drivers)
+add_subdirectory(app)
 
 # Add project symbols (macros)
 target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
@@ -74,6 +49,8 @@ target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
 target_link_libraries(${CMAKE_PROJECT_NAME}
     fk_h7b0 
     # Add user defined libraries
+    drivers
+    app
 )
 
 
