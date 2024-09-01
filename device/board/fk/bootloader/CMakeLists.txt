@@ -54,6 +54,7 @@ target_sources(${PROJECT_NAME} PRIVATE
     ${SOC_DRIVERS_STMH7_PATH}/Src/stm32h7xx_hal_ospi.c
 )
 
-add_custom_target(CopyRuntimeFiles ALL VERBATIM COMMAND_EXPAND_LISTS 
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/device/board/fk/bootloader/bootloader.elf ${CMAKE_BINARY_DIR}
+    COMMENT "Copying bootloader.elf to build directory"
 )
