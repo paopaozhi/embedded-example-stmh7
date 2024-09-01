@@ -5,15 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Cortex Debug",
+            "name": "Debug Image",
             "cwd": "${workspaceFolder}",
-            "executable": "${workspaceFolder}/build/Debug/cmake-demo.elf",
+            "executable": "${workspaceFolder}/out/Debug/Image.elf",
             "request": "launch",
             "type": "cortex-debug",
             "runToEntryPoint": "main",
             "servertype": "openocd",
             "configFiles": [
-                "${workspaceRoot}/openocd.cfg"
+                "${workspaceRoot}/openocd-external.cfg"
             ],
         }
     ]
