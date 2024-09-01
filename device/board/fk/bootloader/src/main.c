@@ -10,15 +10,10 @@ pFunction JumpToApplication;
 UART_HandleTypeDef huart1;
 
 void SystemClock_Config(void);
-void MPU_Config(void);
 static void MX_USART1_UART_Init(void);
 
 int main(void)
 {
-    // SCB_EnableDCache();
-    // SCB_EnableICache();
-
-    MPU_Config();
     HAL_Init();
     SystemClock_Config();
 
@@ -31,19 +26,13 @@ int main(void)
 
     if (QSPI_Status == 0)
     {
-        printf("\r\n进入内存映射模式成功\r\n");
+        printf("\r\nSucceeded in entering memory mapping mode. Procedure!\r\n");
     }
     else
     {
-        printf("\r\n内存映射错误！！  错误代码:%d\r\n", QSPI_Status);
-        while (1)
-            ;
+        printf("\r\nMemory mapping error!!  Error code:%d\r\n", QSPI_Status);
+        Error_Handler();
     }
-
-    printf("JumpToApplication>>>\r\n\r\n");
-
-    SCB_DisableICache(); // 关闭ICache
-    SCB_DisableDCache(); // 关闭Dcache
 
     SysTick->CTRL = 0; // 关闭SysTick
     SysTick->LOAD = 0; // 清零重载值
@@ -55,7 +44,7 @@ int main(void)
 
     JumpToApplication = (pFunction)(*(__IO uint32_t *)(W25Qxx_Mem_Addr + 4));
     __set_MSP(*(__IO uint32_t *)W25Qxx_Mem_Addr);
-    // printf("跳转到W25Q64运行用户程序>>>\r\n\r\n");
+    printf("JumpToApplication>>>\r\n\r\n");
 
     JumpToApplication();
 
@@ -134,32 +123,6 @@ void SystemClock_Config(void)
     {
         Error_Handler();
     }
-}
-
-void MPU_Config(void)
-{
-    MPU_Region_InitTypeDef MPU_InitStruct = {0};
-
-    /* Disables the MPU */
-    HAL_MPU_Disable();
-
-    /** Initializes and configures the Region and the memory to be protected
-     */
-    MPU_InitStruct.Enable = MPU_REGION_ENABLE;
-    MPU_InitStruct.Number = MPU_REGION_NUMBER0;
-    MPU_InitStruct.BaseAddress = 0x0;
-    MPU_InitStruct.Size = MPU_REGION_SIZE_4GB;
-    MPU_InitStruct.SubRegionDisable = 0x87;
-    MPU_InitStruct.TypeExtField = MPU_TEX_LEVEL0;
-    MPU_InitStruct.AccessPermission = MPU_REGION_NO_ACCESS;
-    MPU_InitStruct.DisableExec = MPU_INSTRUCTION_ACCESS_DISABLE;
-    MPU_InitStruct.IsShareable = MPU_ACCESS_SHAREABLE;
-    MPU_InitStruct.IsCacheable = MPU_ACCESS_NOT_CACHEABLE;
-    MPU_InitStruct.IsBufferable = MPU_ACCESS_NOT_BUFFERABLE;
-
-    HAL_MPU_ConfigRegion(&MPU_InitStruct);
-    /* Enables the MPU */
-    HAL_MPU_Enable(MPU_PRIVILEGED_DEFAULT);
 }
 
 static void MX_USART1_UART_Init(void)
