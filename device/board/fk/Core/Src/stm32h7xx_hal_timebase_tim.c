@@ -48,7 +48,7 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
   /*Configure the TIM16 IRQ priority */
   if (TickPriority < (1UL << __NVIC_PRIO_BITS))
    {
-     HAL_NVIC_SetPriority(TIM16_IRQn, TickPriority ,0);
+     HAL_NVIC_SetPriority(TIM16_IRQn, TickPriority ,15);
 
      /* Enable the TIM16 global Interrupt */
      HAL_NVIC_EnableIRQ(TIM16_IRQn);
