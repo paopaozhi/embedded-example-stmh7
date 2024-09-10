@@ -40,10 +40,23 @@ add_subdirectory(device/board/fk)
 add_subdirectory(drivers)
 add_subdirectory(app)
 
+add_subdirectory(third_party/lvgl)
+
+set(RTOS_PATH "${CMAKE_SOURCE_DIR}/device/board/fk/Middlewares/Third_Party/FreeRTOS")
+
 # Add project symbols (macros)
-target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
-    # Add user defined symbols
+target_compile_definitions(${CMAKE_PROJECT_NAME} PUBLIC
+    LV_CONF_INCLUDE_SIMPLE
 )
+
+target_include_directories(lvgl PUBLIC
+    app/spi-lcd/Inc
+    device/board/fk/Core/Inc
+    ${RTOS_PATH}/Source/include
+    ${RTOS_PATH}/Source/CMSIS_RTOS_V2
+    ${RTOS_PATH}/Source/portable/GCC/ARM_CM4F
+)
+
 
 # Add linked libraries
 target_link_libraries(${CMAKE_PROJECT_NAME}
@@ -51,6 +64,10 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
     # Add user defined libraries
     drivers
     app
+)
+
+target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
+    lvgl::lvgl
 )
 
 
