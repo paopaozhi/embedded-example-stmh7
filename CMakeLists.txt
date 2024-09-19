@@ -59,7 +59,7 @@ target_include_directories(lvgl PUBLIC
 
 
 # Add linked libraries
-target_link_libraries(${CMAKE_PROJECT_NAME}
+target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
     fk_h7b0 
     # Add user defined libraries
     drivers

@@ -1255,7 +1255,7 @@ void LCD_CopyBuffer(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uin
     LCD_SPI.Init.DataSize = SPI_DATASIZE_16BIT; //	16位数据宽度
     HAL_SPI_Init(&LCD_SPI);
 
-    //LCD_SPI_TransmitBuffer(&LCD_SPI, DataBuff, width * height);
+    // LCD_SPI_TransmitBuffer(&LCD_SPI, DataBuff, width * height);
     __IO uint16_t size = (width-x+1) * (height-y+1);
     // printf("buf len: %d\r\n",size);
     HAL_SPI_Transmit(&LCD_SPI, (uint8_t *)DataBuff, size, 0xffff);
