@@ -1247,7 +1247,7 @@ void LCD_DrawImage(uint16_t x, uint16_t y, uint16_t width, uint16_t height, cons
 
 void LCD_CopyBuffer(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint16_t* DataBuff)
 {
-    LCD_SetAddress(x, y, x + width - 1, y + height - 1);
+    LCD_SetAddress(x, y, x + width, y + height);
 
     LCD_DC_Data; // 数据指令选择 引脚输出高电平，代表本次传输 数据
 
