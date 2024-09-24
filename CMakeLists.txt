@@ -50,7 +50,7 @@ target_compile_definitions(${CMAKE_PROJECT_NAME} PUBLIC
 )
 
 target_include_directories(lvgl PUBLIC
-    app/spi-lcd/Inc
+    app/lvgl_demo/Inc
     device/board/fk/Core/Inc
     ${RTOS_PATH}/Source/include
     ${RTOS_PATH}/Source/CMSIS_RTOS_V2

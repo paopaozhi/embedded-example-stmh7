@@ -1,4 +1,4 @@
-project(spi-lcd)
+project(lvgl_demo)
 
 set(THRID_PARTY_PATH "${CMAKE_SOURCE_DIR}/third_party")
 set(RTOS_PATH "${CMAKE_SOURCE_DIR}/device/board/fk/Middlewares/Third_Party/FreeRTOS/")
