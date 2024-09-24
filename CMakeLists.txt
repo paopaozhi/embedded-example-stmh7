@@ -68,6 +68,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
 
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
     lvgl::lvgl
+    lvgl::demos
 )
 
 

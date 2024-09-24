@@ -1,11 +1,14 @@
 #include <FreeRTOS.h>
 #include <stdio.h>
+#include "FreeRTOS.h"
+#include "task.h"
 #include "cmsis_os2.h"
 #include "hdm.h"
 #include "lvgl.h"
 #include "lv_port_disp.h"
 #include "lcd_spi_200.h"
-#include "lv_demos.h"
+#include "demos/lv_demos.h"
+// #include "lv_demos.h"
 
 #define UART1 1
 
@@ -24,6 +27,12 @@ void lv_example_button_1(void)
     lv_obj_center(label);                   /*Align the label to the center*/
 }
 
+void timer_hander(void *arg)
+{
+    (void)arg;
+    lv_tick_inc(1);
+}
+
 void app_main(void *arg)
 {
     (void)arg;
@@ -33,6 +42,7 @@ void app_main(void *arg)
 
     lv_init();
     lv_port_disp_init();
+    lv_tick_set_cb(xTaskGetTickCount);
 
     // timer_id = osTimerNew(timer_hander, osTimerPeriodic, NULL, NULL);
     // osTimerStart(timer_id, 1);
@@ -46,7 +56,7 @@ void app_main(void *arg)
 
     while (1)
     {
-        lv_timer_handler();
-        osDelay(5);
+        uint32_t time_till_next = lv_timer_handler();
+        osDelay(time_till_next);
     }
 }
