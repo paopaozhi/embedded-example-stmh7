@@ -55,7 +55,7 @@ const osThreadAttr_t defaultTask_attributes = {
 osThreadId_t appMainTask02Handle;
 const osThreadAttr_t appMainTask02_attributes = {
   .name = "appMainTask02",
-  .stack_size = 512 * 4,
+  .stack_size = 630 * 4,
   .priority = (osPriority_t) osPriorityLow,
 };
 /* USER CODE BEGIN PV */

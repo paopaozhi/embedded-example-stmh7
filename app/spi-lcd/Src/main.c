@@ -5,6 +5,7 @@
 #include "lvgl.h"
 #include "lv_port_disp.h"
 #include "lcd_spi_200.h"
+#include "lv_demos.h"
 
 #define UART1 1
 
@@ -40,7 +41,8 @@ void app_main(void *arg)
     // LCD_Clear();
     // LCD_DisplayText(0, 0, "Hello World!");
 
-    lv_example_button_1();
+    // lv_example_button_1();
+    lv_demo_benchmark();
 
     while (1)
     {
